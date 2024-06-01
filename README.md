@@ -1,10 +1,13 @@
-## Step 1: Prepare app dependencies
+# React Native Ride-Sharing Driver Application (Wingz React Native Assessment)
+
+## Setup
+### Step 1: Prepare app dependencies
 
 - `npm install`
 - `bundle install`
 - `bundle exec pod install` (iOS dependency)
 
-## Step 2: Start the Metro Server
+### Step 2: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
@@ -18,11 +21,11 @@ npm start
 yarn start
 ```
 
-## Step 3: Start your Application
+### Step 3: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### For Android
+#### For Android
 
 ```bash
 # using npm
@@ -32,7 +35,7 @@ npm run android
 yarn android
 ```
 
-### For iOS
+#### For iOS
 
 ```bash
 # using npm
@@ -44,8 +47,11 @@ yarn ios
 
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-## Setp 4: Running Tests
+### Setup 4: Running Tests
 
 ```bash
 npm test
 ````
+
+## Demo
+See https://www.loom.com/share/e72504655d814d6d942550f86eedee7f?sid=e633c171-608a-4f66-ae8c-204b5c3422ce
