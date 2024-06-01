@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { selectDriverLocation, selectRideRequests, selectClosestRequestId } from '../redux/selectors';
 import { setDriverLocation, setRideRequests } from '../redux/slices/rideRequestsSlice';
 import { mockRideRequests } from '../mockRideRequests';
@@ -60,7 +61,9 @@ const HomeScreen: React.FC = () => {
             coordinate={driverLocation}
             title="Your Location"
             pinColor="blue" // Different color marker for the driver's location
-          />
+          >
+            <Icon name="map-marker" size={30} color="blue" />
+          </Marker>
         )}
         {rideRequests.map((request) => (
           <Marker
@@ -70,7 +73,13 @@ const HomeScreen: React.FC = () => {
             description={`Pickup Location`}
             pinColor={request.id === closestRequestId ? 'green' : 'red'} // Highlight the closest ride request
             onPress={() => navigation.navigate('RideRequestDetails', { rideId: request.id })}
-          />
+          >
+            <Icon
+                name={request.status === 'accepted' ? 'flag-checkered' : 'map-marker'}
+                size={30}
+                color={request.id === closestRequestId ? 'green' : request.status === 'accepted' ? 'black' : 'red'}
+              />
+          </Marker>
         ))}
       </MapView>
     </View>
