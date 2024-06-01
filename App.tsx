@@ -3,9 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-
-import Homescreen from '@pages/Homescreen';
-import store from 'utils/redux/store';
+import HomeScreen from './src/screens/HomeScreen';
+import RideRequestDetailsScreen from './src/screens/RideRequestDetailsScreen';
+import { store } from './src/redux/store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createNativeStackNavigator();
@@ -15,12 +15,9 @@ const App = () => {
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-            initialRouteName={'Homescreen'}>
-            <Stack.Screen name="Homescreen" component={Homescreen} />
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="RideRequestDetails" component={RideRequestDetailsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
