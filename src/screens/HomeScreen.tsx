@@ -4,7 +4,7 @@ import MapView, { Marker, Region } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { selectDriverLocation, selectRideRequests, selectClosestRequestId } from '../redux/selectors';
+import { selectDriverLocation, selectRideRequests, selectClosestRideRequest } from '../redux/selectors';
 import { setDriverLocation, setRideRequests } from '../redux/slices/rideRequestsSlice';
 import { mockRideRequests } from '../mockRideRequests';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +14,7 @@ const HomeScreen: React.FC = () => {
   const dispatch = useDispatch();
   const driverLocation = useSelector(selectDriverLocation);
   const rideRequests = useSelector(selectRideRequests);
-  const closestRequestId = useSelector(selectClosestRequestId);
+  const closestRideRequest = useSelector(selectClosestRideRequest);
   const navigation = useNavigation();
   const [mapRegion, setMapRegion] = useState<Region | null>(null);
 
@@ -71,13 +71,13 @@ const HomeScreen: React.FC = () => {
             coordinate={request.pickupLocation}
             title={`Ride Request ${request.id}`}
             description={`Pickup Location`}
-            pinColor={request.id === closestRequestId ? 'green' : 'red'} // Highlight the closest ride request
+            pinColor={request.id === closestRideRequest.id ? 'green' : 'red'} // Highlight the closest ride request
             onPress={() => navigation.navigate('RideRequestDetails', { rideId: request.id })}
           >
             <Icon
                 name={request.status === 'accepted' ? 'flag-checkered' : 'map-marker'}
                 size={30}
-                color={request.id === closestRequestId ? 'green' : request.status === 'accepted' ? 'black' : 'red'}
+                color={request.id === closestRideRequest.id ? 'green' : request.status === 'accepted' ? 'black' : 'red'}
               />
           </Marker>
         ))}

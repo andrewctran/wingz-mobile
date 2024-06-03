@@ -15,8 +15,6 @@ describe('store', () => {
     const state = store.getState();
     expect(state.driver.location).toBeNull();
     expect(state.rideRequests.requests).toEqual([]);
-    expect(state.rideRequests.closestRequestId).toBeNull();
-    expect(state.rideRequests.driverLocation).toBeNull();
   });
 
   it('should handle setDriverLocation for driver slice', () => {
@@ -37,15 +35,6 @@ describe('store', () => {
     store.dispatch(updateRideRequestStatus({ id: '1', status: 'accepted' }));
     const state = store.getState();
     expect(state.rideRequests.requests.find(req => req.id === '1')?.status).toEqual('accepted');
-  });
-
-  it('should handle setDriverLocation for rideRequests slice and update closestRequestId', () => {
-    store.dispatch(setRideRequests(mockRideRequests));
-    const location = { latitude: 37.78825, longitude: -122.4324 };
-    store.dispatch(setRideRequestsDriverLocation(location));
-    const state = store.getState();
-    expect(state.rideRequests.driverLocation).toEqual(location);
-    expect(state.rideRequests.closestRequestId).toEqual('1');
   });
 
   it('should handle removing declined request', () => {
