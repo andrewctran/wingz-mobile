@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { selectDriverLocation, selectRideRequests, selectClosestRideRequest } from '../redux/selectors';
-import { setDriverLocation, setRideRequests } from '../redux/slices/rideRequestsSlice';
+import { setRideRequests } from '../redux/slices/rideRequestsSlice';
+import { setDriverLocation } from '../redux/slices/driverSlice';
 import { mockRideRequests } from '../mockRideRequests';
 import { useNavigation } from '@react-navigation/native';
 import { LATITUDE_DELTA, LONGITUDE_DELTA } from '../constants';
@@ -17,6 +18,7 @@ const HomeScreen: React.FC = () => {
   const closestRideRequest = useSelector(selectClosestRideRequest);
   const navigation = useNavigation();
   const [mapRegion, setMapRegion] = useState<Region | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -46,8 +48,17 @@ const HomeScreen: React.FC = () => {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       });
+      setLoading(false);
     }
   }, [driverLocation]);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000FF" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -95,6 +106,11 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default HomeScreen;
