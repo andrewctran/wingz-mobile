@@ -30,7 +30,7 @@ const HomeScreen: React.FC = () => {
           longitudeDelta: LONGITUDE_DELTA,
         });
       },
-      (error) => console.log(error),
+      (error) => Alert.alert('Error', 'Failed to get current location.'),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
 
